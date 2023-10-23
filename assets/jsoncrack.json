@@ -1,0 +1,56 @@
+[
+  {
+    "userId": 1,
+    "userNmae": "Md Tauhid",
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "The app follows DDD Clean Architecture principles to ensure separation of concerns and modularity.",
+    "photo": "",
+    "date": "10/10/2023 12:10:00",
+    "comments": [
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid",
+        "comment": "This is my comment..."
+      },
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid",
+        "comment": "This is my comment2..."
+      }
+    ],
+    "liked": [
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid"
+      }
+    ]
+  },
+  {
+    "userId": 1,
+    "userNmae": "Md Tauhid",
+    "id": 2,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+    "photo": "",
+    "date": "10/10/2023 12:10:00",
+    "comments": [
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid",
+        "comment": "This is my comment..."
+      },
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid",
+        "comment": "This is my comment2..."
+      }
+    ],
+    "liked": [
+      {
+        "userId": 1,
+        "userNmae": "Md Tauhid"
+      }
+    ]
+  }
+]
