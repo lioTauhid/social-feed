@@ -1,12 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:social_feed/res/constants/app_color.dart';
+import 'package:social_feed/utils/utils.dart';
 import '../../../res/components/common_widgets.dart';
 import '../../../res/routes/routes_name.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Firebase.initializeApp().whenComplete(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +73,24 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: () {}),
                   ),
-                  normalButton("LOGIN", primaryColor, white, onPressed: () {
-                    Get.toNamed(RouteName.dashBoard);
+                  normalButton("LOGIN", primaryColor, white,
+                      onPressed: () async {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text);
+                      if (credential.user != null) {
+                        Get.offNamed(RouteName.dashBoard);
+                      }
+                    } on FirebaseAuthException catch (e) {
+                      Utils.showSnackBar(e.message.toString() + e.code);
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
                   }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +121,9 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            signInWithGoogle();
+                          },
                           icon: const Icon(FontAwesomeIcons.google,
                               size: 35, color: Colors.blue)),
                       const SizedBox(
@@ -119,5 +156,26 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  void signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+
+    final User? user = (await auth.signInWithCredential(credential)).user;
+    print(user);
+    if (user != null) {
+      Get.offNamed(RouteName.dashBoard);
+
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (_) => const DashBoard()));
+    }
   }
 }

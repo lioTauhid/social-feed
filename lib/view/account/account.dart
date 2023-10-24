@@ -1,11 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../res/constants/app_color.dart';
 import '../../../res/constants/value.dart';
 import '../../../service/local/shared_pref.dart';
+import '../../res/routes/routes_name.dart';
 import '../dashboard/dashboard.dart';
 
 class Account extends StatelessWidget {
-  const Account({Key? key}) : super(key: key);
+  Account({Key? key}) : super(key: key);
+  final user = FirebaseAuth.instance.currentUser;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +26,8 @@ class Account extends StatelessWidget {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/logo_round.png',
+                  child: Image.network(
+                    user!.photoURL.toString(),
                     height: 120,
                     width: 120,
                     fit: BoxFit.cover,
@@ -61,12 +66,14 @@ class Account extends StatelessWidget {
                       darkMode = false;
                       applyThem(darkMode);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const DashBoard()));
+                          builder: (BuildContext context) =>
+                              const DashBoard()));
                     } else {
                       darkMode = true;
                       applyThem(darkMode);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const DashBoard()));
+                          builder: (BuildContext context) =>
+                              const DashBoard()));
                     }
                   },
                 ),
@@ -127,7 +134,8 @@ class Account extends StatelessWidget {
                 style: TextStyle(color: textSecondary, fontSize: fontMedium),
               ),
               ListTile(
-                title: Text('Career Goals', style: TextStyle(color: textPrimary)),
+                title:
+                    Text('Career Goals', style: TextStyle(color: textPrimary)),
                 trailing: Icon(Icons.arrow_forward_ios, color: textPrimary),
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -174,8 +182,8 @@ class Account extends StatelessWidget {
                 onTap: () {},
               ),
               ListTile(
-                title:
-                    Text('Contact Support', style: TextStyle(color: textPrimary)),
+                title: Text('Contact Support',
+                    style: TextStyle(color: textPrimary)),
                 trailing: Icon(Icons.arrow_forward_ios, color: textPrimary),
                 contentPadding: EdgeInsets.zero,
                 onTap: () {},
@@ -184,7 +192,11 @@ class Account extends StatelessWidget {
               const SizedBox(height: 10),
               Center(
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FirebaseAuth.instance
+                          .signOut()
+                          .then((value) => Get.offNamed(RouteName.loginView));
+                    },
                     child: const Text(
                       'Sign Out',
                       style: TextStyle(

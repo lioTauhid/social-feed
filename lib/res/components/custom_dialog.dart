@@ -91,29 +91,29 @@ Widget commentView(
                 borderRadius: BorderRadius.circular(8),
               ),
             )),
-        homeController.postList[index].comments.isEmpty
-            ? const SizedBox()
-            : Expanded(
-                child: Obx(() {
-                  return ListView.builder(
-                      itemCount: homeController.postList[index].comments.length,
-                      itemBuilder: (ctx, i) {
-                        return ListTile(
-                          leading: Icon(Icons.person, color: textPrimary,),
-                          title: Text(
-                              homeController
-                                  .postList[index].comments[i].userNmae
-                                  .toString(),
-                              style: TextStyle(color: textPrimary)),
-                          subtitle: Text(
-                            homeController.postList[index].comments[i].comment
-                                .toString(),
-                            style: TextStyle(color: textPrimary),
-                          ),
-                        );
-                      });
-                }),
-              )
+        Expanded(
+          child: Obx(() {
+            return ListView.builder(
+                itemCount: homeController.postList[index].comments.length,
+                itemBuilder: (ctx, i) {
+                  return ListTile(
+                    leading: Icon(
+                      Icons.person,
+                      color: textPrimary,
+                    ),
+                    title: Text(
+                        homeController.postList[index].comments[i].userNmae
+                            .toString(),
+                        style: TextStyle(color: textPrimary)),
+                    subtitle: Text(
+                      homeController.postList[index].comments[i].comment
+                          .toString(),
+                      style: TextStyle(color: textPrimary),
+                    ),
+                  );
+                });
+          }),
+        )
       ],
     ),
   );

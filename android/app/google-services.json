@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "787533474585",
+    "firebase_url": "https://wissenlms.firebaseio.com",
+    "project_id": "wissenlms",
+    "storage_bucket": "wissenlms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787533474585:android:48ceeb8dbbd8b4efde3388",
+        "android_client_info": {
+          "package_name": "com.social.feed.social_feed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787533474585-8rsbe10sr06rm43ljurkbdqbgtfmjnup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6kB3DO2MSVpMAv_CQXCyzHl-8wyIigCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787533474585-8rsbe10sr06rm43ljurkbdqbgtfmjnup.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "787533474585-h5e08rv05olj83d1oa8itk1u13frofu1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wissenlms.mobile.wissen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787533474585:android:315269f98e7e5b12de3388",
+        "android_client_info": {
+          "package_name": "com.wissenlms.mobile.wissen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787533474585-f8s7qqb8t3bjcu2q1144qs6e0a2v95on.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wissenlms.mobile.wissen",
+            "certificate_hash": "d25f41b53da83d646dd9b2fb71cc5482752cd288"
+          }
+        },
+        {
+          "client_id": "787533474585-8rsbe10sr06rm43ljurkbdqbgtfmjnup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6kB3DO2MSVpMAv_CQXCyzHl-8wyIigCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787533474585-8rsbe10sr06rm43ljurkbdqbgtfmjnup.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "787533474585-h5e08rv05olj83d1oa8itk1u13frofu1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wissenlms.mobile.wissen"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

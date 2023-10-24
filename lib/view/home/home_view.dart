@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   HomeController homeController = Get.find();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -52,7 +54,7 @@ class _HomeViewState extends State<HomeView> {
                   Post post = Post(
                       userId: 1,
                       id: DateTime.timestamp().toString(),
-                      userNmae: "Md Tauhid",
+                      userNmae: user!.displayName,
                       title: "title",
                       body: homeController.controller.value.text,
                       photo: homeController.imagePath.value,
@@ -90,8 +92,8 @@ class _HomeViewState extends State<HomeView> {
                           children: [
                             Row(
                               children: [
-                                Image.asset(
-                                  "assets/img.png",
+                                Image.network(
+                                  user!.photoURL.toString(),
                                   height: 50,
                                 ),
                                 const SizedBox(width: 10),

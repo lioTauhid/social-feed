@@ -13,7 +13,7 @@ const String baseUrl = "https://app.klio.digital/api/";
 late String token;
 late String loginType;
 bool darkMode = false;
-const String appName = "Wissen";
+const String appName = "Social Feed";
 const String appVersion = "V 1.0";
 const String privacyPolicy =
     "https://lio-system-inc.blogspot.com/p/job-news-privacy-policy.html";

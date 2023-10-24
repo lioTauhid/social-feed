@@ -20,7 +20,7 @@ class _DashBoardState extends State<DashBoard> {
 
   final List<Widget> _widgetOptions = [
     const HomeView(),
-    const Account(),
+    Account(),
     // const Account()
   ];
 

@@ -19,7 +19,7 @@ class AppRoutes {
         ),
         GetPage(
           name: RouteName.loginView,
-          page: () => const LoginScreen(),
+          page: () => LoginScreen(),
           transitionDuration: const Duration(milliseconds: 250),
           transition: Transition.leftToRightWithFade,
         ),
@@ -43,7 +43,7 @@ class AppRoutes {
         ),
         GetPage(
           name: RouteName.account,
-          page: () => const Account(),
+          page: () => Account(),
           transitionDuration: const Duration(milliseconds: 250),
           transition: Transition.leftToRightWithFade,
         ),
