@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../service/local/shared_pref.dart';
-import '../../res/components/custom_dialog.dart';
-import '../../res/constants/app_color.dart';
-import '../../res/constants/value.dart';
-import 'dashboard/dashboard.dart';
+import '../../../../service/local/shared_pref.dart';
+import '../../../res/components/custom_dialog.dart';
+import '../../../res/constants/app_color.dart';
+import '../../../res/constants/value.dart';
+import '../dashboard/dashboard.dart';
 
 Widget sideDrawer(BuildContext context) {
   return Drawer(

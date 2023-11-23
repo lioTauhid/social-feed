@@ -1,44 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../res/components/common_widgets.dart';
 import '../../../res/constants/app_color.dart';
-import '../../res/routes/routes_name.dart';
-import '../../utils/utils.dart';
+import '../../view_model/login_register/login_view_model.dart';
 
 // ignore: must_be_immutable
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
+  LoginRegViewModel loginRegViewModel = Get.find();
 
-class _RegisterScreenState extends State<RegisterScreen> {
   var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
-
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      setState(() {});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryBackground,
       appBar: AppBar(),
       body: Center(
         child: SingleChildScrollView(
@@ -49,54 +27,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Register',
-                    style: TextStyle(
-                      fontSize: 38,
-                    ),
+                    style: TextStyle(fontSize: 38, color: textPrimary),
                   ),
-                  const Text(
+                  Text(
                     'Register now to browse our hot offers',
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                    style: TextStyle(fontSize: 18, color: textSecondary),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  normalTextField(nameController, "User Name",
-                      prefIcon: const Icon(Icons.person)),
+                  normalTextField(loginRegViewModel.nameController, "User Name",
+                      prefIcon: Icon(Icons.person, color: textPrimary)),
                   const SizedBox(height: 30),
-                  normalTextField(emailController, "Email address",
-                      prefIcon: const Icon(Icons.email_outlined)),
+                  normalTextField(
+                      loginRegViewModel.emailController.value, "Email address",
+                      prefIcon: Icon(
+                        Icons.email_outlined,
+                        color: textPrimary,
+                      )),
                   const SizedBox(
                     height: 30,
                   ),
-                  normalTextField(passwordController, "Password",
-                      prefIcon: const Icon(Icons.lock_outline)),
+                  normalTextField(
+                      loginRegViewModel.passwordController.value, "Password",
+                      prefIcon: Icon(
+                        Icons.lock_outline,
+                        color: textPrimary,
+                      )),
                   const SizedBox(height: 30),
-                  normalTextField(phoneController, "Phone",
-                      prefIcon: const Icon(Icons.phone)),
+                  normalTextField(loginRegViewModel.phoneController, "Phone",
+                      prefIcon: Icon(
+                        Icons.phone,
+                        color: textPrimary,
+                      )),
                   const SizedBox(height: 15),
                   normalButton("Register", primaryColor, white,
                       onPressed: () async {
-                    try {
-                      final credential = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                      if (credential.user != null) {
-                        Get.toNamed(RouteName.dashBoard);
-                      }
-                    } on FirebaseAuthException catch (e) {
-                      Utils.showSnackBar(e.message.toString() + e.code);
-                      if (e.code == 'weak-password') {
-                        print('The password provided is too weak.');
-                      } else if (e.code == 'email-already-in-use') {
-                        print('The account already exists for that email.');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
+                    loginRegViewModel
+                        .registerWithEmailPassword()
+                        .whenComplete(() {});
                   }),
                   const SizedBox(
                     height: 15,

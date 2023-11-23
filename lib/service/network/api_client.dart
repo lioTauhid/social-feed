@@ -9,13 +9,13 @@ import 'api_exception.dart';
 import 'api_service.dart';
 
 class ApiClient extends ApiServices {
-
   @override
   Future<dynamic> get(String endPoint, {dynamic header, dynamic query}) async {
     var uri = Uri.parse(baseUrl + endPoint).replace(queryParameters: query);
     try {
-      var response =
-          await http.get(uri, headers: header).timeout(Duration(seconds: 20));
+      var response = await http
+          .get(uri, headers: header)
+          .timeout(const Duration(seconds: 20));
       return _processResponse(response);
     } on SocketException {
       throw ProcessDataException("No internet connection", uri.toString());
@@ -31,7 +31,7 @@ class ApiClient extends ApiServices {
     try {
       var response = await http
           .post(uri, body: payloadObj, headers: header)
-          .timeout(Duration(seconds: 20));
+          .timeout(const Duration(seconds: 20));
       return _processResponse(response);
     } on SocketException {
       throw ProcessDataException("No internet connection", uri.toString());
@@ -40,35 +40,37 @@ class ApiClient extends ApiServices {
     }
   }
 
-  // //PUT
-  // Future<dynamic> put(String endPoint, dynamic payloadObj,
-  //     {dynamic header}) async {
-  //   var uri = Uri.parse(baseUrl + endPoint);
-  //   try {
-  //     var response = await http
-  //         .put(uri, body: payloadObj, headers: header)
-  //         .timeout(Duration(seconds: 20));
-  //     return _processResponse(response);
-  //   } on SocketException {
-  //     throw ProcessDataException("No internet connection", uri.toString());
-  //   } on TimeoutException {
-  //     throw ProcessDataException("Not responding in time", uri.toString());
-  //   }
-  // }
-  // //DELETE
-  // Future<dynamic> delete(String endPoint, {dynamic header, dynamic query}) async {
-  //   var uri = Uri.parse(baseUrl + endPoint).replace(queryParameters: query);
-  //   try {
-  //     var response = await http.delete(uri, headers: header)
-  //         // .put(uri, body: payloadObj, headers: header)
-  //         .timeout(Duration(seconds: 20));
-  //     return _processResponse(response);
-  //   } on SocketException {
-  //     throw ProcessDataException("No internet connection", uri.toString());
-  //   } on TimeoutException {
-  //     throw ProcessDataException("Not responding in time", uri.toString());
-  //   }
-  // }
+  @override
+  Future<dynamic> put(String endPoint, dynamic payloadObj,
+      {dynamic header}) async {
+    var uri = Uri.parse(baseUrl + endPoint);
+    try {
+      var response = await http
+          .put(uri, body: payloadObj, headers: header)
+          .timeout(const Duration(seconds: 20));
+      return _processResponse(response);
+    } on SocketException {
+      throw ProcessDataException("No internet connection", uri.toString());
+    } on TimeoutException {
+      throw ProcessDataException("Not responding in time", uri.toString());
+    }
+  }
+
+  @override
+  Future<dynamic> delete(String endPoint,
+      {dynamic header, dynamic query}) async {
+    var uri = Uri.parse(baseUrl + endPoint).replace(queryParameters: query);
+    try {
+      var response = await http
+          .delete(uri, headers: header)
+          .timeout(const Duration(seconds: 20));
+      return _processResponse(response);
+    } on SocketException {
+      throw ProcessDataException("No internet connection", uri.toString());
+    } on TimeoutException {
+      throw ProcessDataException("Not responding in time", uri.toString());
+    }
+  }
 
   dynamic _processResponse(http.Response response) {
     var jsonResponse = utf8.decode(response.bodyBytes);

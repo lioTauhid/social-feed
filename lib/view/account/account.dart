@@ -11,7 +11,6 @@ class Account extends StatelessWidget {
   Account({Key? key}) : super(key: key);
   final user = FirebaseAuth.instance.currentUser;
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +26,8 @@ class Account extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: Image.network(
-                    user!.photoURL.toString(),
+                    user!.photoURL ??
+                        "https://github.com/lioTauhid/tiktok-iu/blob/c3a8e728142392158fd3fd538dadc3fda19a5eba/assets/Group%20946.png?raw=true",
                     height: 120,
                     width: 120,
                     fit: BoxFit.cover,

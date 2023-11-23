@@ -138,9 +138,13 @@ Widget normalTextField(TextEditingController controller, String hint,
         fillColor: secondaryBackground,
         prefixIcon: prefIcon,
         hintText: hint,
+        hintStyle: TextStyle(fontSize: fontSmall, color: textPrimary),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: textPrimary)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: primaryColor)),
       ));
 }
 

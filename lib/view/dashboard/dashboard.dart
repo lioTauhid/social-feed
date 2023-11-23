@@ -16,7 +16,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  final homeController = Get.put(HomeController());
+  final homeController = Get.put(HomeViewModel());
 
   final List<Widget> _widgetOptions = [
     const HomeView(),
@@ -32,39 +32,41 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-        return Scaffold(
-          backgroundColor: primaryBackground,
-          body: Center(
-            child: _widgetOptions.elementAt(homeController.selectedIndex.value),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.feed, size: 30),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person, size: 29),
-                label: '',
-              ),
-            ],
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: secondaryBackground,
-            currentIndex: homeController.selectedIndex.value,
-            selectedIconTheme: const IconThemeData(color: primaryColor, opacity: 1),
-            unselectedIconTheme: IconThemeData(color: textSecondary, opacity: 1),
-            selectedItemColor: textPrimary,
-            unselectedItemColor: textSecondary,
-            selectedLabelStyle: const TextStyle(fontSize: fontSmall),
-            unselectedLabelStyle: const TextStyle(fontSize: fontSmall),
-            onTap: (index) {
-              setState(() {
-                homeController.selectedIndex.value = index;
-              });
-            },
-          ),
-        );
-      }
-    );
+      return Scaffold(
+        backgroundColor: primaryBackground,
+        body: Center(
+          child: _widgetOptions.elementAt(homeController.selectedIndex.value),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.feed, size: 30),
+              label: 'Feed',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, size: 29),
+              label: 'Account',
+            ),
+          ],
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: secondaryBackground,
+          elevation: 20,
+          currentIndex: homeController.selectedIndex.value,
+          // selectedIconTheme: const IconThemeData(color: primaryColor, opacity: 1),
+          // unselectedIconTheme: IconThemeData(color: textSecondary, opacity: 1),
+          selectedItemColor: primaryColor,
+          unselectedItemColor: alternate,
+          selectedLabelStyle:
+              const TextStyle(fontSize: fontSmall, color: primaryColor),
+          unselectedLabelStyle:
+              const TextStyle(fontSize: fontSmall, color: alternate),
+          onTap: (index) {
+            setState(() {
+              homeController.selectedIndex.value = index;
+            });
+          },
+        ),
+      );
+    });
   }
 }

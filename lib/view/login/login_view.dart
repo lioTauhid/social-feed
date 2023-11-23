@@ -1,39 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:social_feed/res/constants/app_color.dart';
-import 'package:social_feed/utils/utils.dart';
 import '../../../res/components/common_widgets.dart';
 import '../../../res/routes/routes_name.dart';
+import '../../view_model/login_register/login_view_model.dart';
 
-class LoginScreen extends StatefulWidget {
+// ignore: must_be_immutable
+class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Firebase.initializeApp().whenComplete(() {
-      setState(() {});
-    });
-  }
+  LoginRegViewModel loginRegViewModel = Get.put(LoginRegViewModel());
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-
     var formKey = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: primaryBackground,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -43,54 +26,43 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'LOGIN',
-                    style: TextStyle(
-                      fontSize: 38,
-                    ),
+                    style: TextStyle(fontSize: 38, color: textPrimary),
                   ),
-                  const Text(
+                  Text(
                     'Login now to browse our hot offers',
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                    style: TextStyle(fontSize: 18, color: textSecondary),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  normalTextField(emailController, "Email",
-                      prefIcon: const Icon(Icons.email)),
+                  normalTextField(
+                      loginRegViewModel.emailController.value, "Email",
+                      prefIcon: Icon(Icons.email, color: textPrimary)),
                   const SizedBox(
                     height: 30,
                   ),
-                  normalTextField(passwordController, "Password",
-                      prefIcon: const Icon(Icons.lock)),
+                  normalTextField(
+                      loginRegViewModel.passwordController.value, "Password",
+                      prefIcon: Icon(
+                        Icons.lock,
+                        color: textPrimary,
+                      )),
                   Container(
                     width: double.infinity,
                     alignment: AlignmentDirectional.centerEnd,
                     child: TextButton(
-                        child: const Text(
+                        child: Text(
                           "forget your password",
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: textSecondary),
                         ),
                         onPressed: () {}),
                   ),
-                  normalButton("LOGIN", primaryColor, white,
-                      onPressed: () async {
-                    try {
-                      final credential = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text);
-                      if (credential.user != null) {
-                        Get.offNamed(RouteName.dashBoard);
-                      }
-                    } on FirebaseAuthException catch (e) {
-                      Utils.showSnackBar(e.message.toString() + e.code);
-                      if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
-                      } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
-                      }
-                    }
+                  normalButton("LOGIN", primaryColor, white, onPressed: () {
+                    loginRegViewModel
+                        .loginWithEmailPassword()
+                        .whenComplete(() {});
                   }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -103,8 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Container(
                           padding: const EdgeInsets.all(8),
-                          child: const Text(
+                          child: Text(
                             "OR Sign With",
+                            style: TextStyle(color: textSecondary),
                           )),
                       Expanded(
                         child: Container(
@@ -122,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            signInWithGoogle();
+                            loginRegViewModel.signInWithGoogle();
                           },
                           icon: const Icon(FontAwesomeIcons.google,
                               size: 35, color: Colors.blue)),
@@ -139,8 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'Don\'t have an account?',
+                        style: TextStyle(color: textSecondary),
                       ),
                       TextButton(
                           onPressed: () {
@@ -156,26 +130,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  void signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-
-    final User? user = (await auth.signInWithCredential(credential)).user;
-    print(user);
-    if (user != null) {
-      Get.offNamed(RouteName.dashBoard);
-
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (_) => const DashBoard()));
-    }
   }
 }

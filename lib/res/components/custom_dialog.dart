@@ -65,7 +65,7 @@ Widget dialogHeader(String title, BuildContext context) {
 Widget commentView(
     int index, TextEditingController controller, BuildContext context,
     {Function()? onPressed}) {
-  final HomeController homeController = Get.find();
+  final HomeViewModel homeController = Get.find();
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Column(
@@ -102,8 +102,7 @@ Widget commentView(
                       color: textPrimary,
                     ),
                     title: Text(
-                        homeController.postList[index].comments[i].userNmae
-                            .toString(),
+                        homeController.postList[index].comments[i].userName ?? "Unnamed",
                         style: TextStyle(color: textPrimary)),
                     subtitle: Text(
                       homeController.postList[index].comments[i].comment

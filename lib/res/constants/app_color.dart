@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-// class AppColor {}
+const Color primaryColor = Color(0xff209fa6);
+// const Color secondaryColor = Color(0xff168d91);
+// const Color accentColor = Colors.blueAccent;
 
-const Color primaryColor = Color(0xff03A9F4);
-const Color secondaryColor = Color(0xff00BCD4);
-const Color accentColor = Colors.orange;
+// const Color primaryColor = Color(0xff03A9F4);
+const Color secondaryColor = Color(0xffB3E5FC);
+const Color accentColor = Color(0xff00BCD4);
+const Color alternate = Color.fromRGBO(76, 66, 67, 0.66);
 
 Color textPrimary = const Color(0xff212121);
 Color textSecondary = const Color(0xff757575);
-Color primaryBackground = const Color(0xffF1F4F8);
-Color secondaryBackground = const Color(0xffFFFFFF);
-// Color alternate = const Color(0xff434343);
+Color primaryBackground = const Color(0xffFFFFFF);
+Color secondaryBackground = const Color(0xffF1F4F8);
 
 const Color red = Colors.red;
 const Color white = Colors.white;
@@ -26,8 +28,8 @@ void applyThem(bool dark) {
   } else {
     textPrimary = const Color(0xff262626);
     textSecondary = const Color(0xff7B7B7B);
-    primaryBackground = const Color(0xffF1F4F8);
-    secondaryBackground = const Color(0xffFFFFFF);
+    primaryBackground = const Color(0xffFFFFFF);
+    secondaryBackground = const Color(0xffF1F4F8);
     // alternate = const Color(0xffF5F5F5);
   }
 }

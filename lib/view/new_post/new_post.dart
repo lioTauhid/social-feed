@@ -12,7 +12,7 @@ import '../../view_model/home/home_view_models.dart';
 
 class CreatePostScreen extends StatelessWidget {
   CreatePostScreen({Key? key, required this.voidCallback}) : super(key: key);
-  final HomeController homeController = Get.find();
+  final HomeViewModel homeController = Get.find();
   final VoidCallback voidCallback;
 
   @override
@@ -31,8 +31,17 @@ class CreatePostScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
                 elevation: 0,
-                color: secondaryColor,
-                onPressed: voidCallback,
+                color: primaryColor,
+                // onPressed: voidCallback,
+                onPressed: () async {
+                  Utils.showLoading();
+                  await homeController.addPostToDb(
+                      homeController.capController.value.text,
+                      homeController.imagePath.value);
+                  Utils.hidePopup();
+                  Utils.hidePopup();
+                  Utils.showSnackBar("New post added successfully.");
+                },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100.0),
                 ),
@@ -54,7 +63,7 @@ class CreatePostScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                  controller: homeController.controller.value,
+                  controller: homeController.capController.value,
                   keyboardType: TextInputType.text,
                   minLines: 6,
                   maxLines: 6,
@@ -66,13 +75,11 @@ class CreatePostScreen extends StatelessWidget {
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
-                            color: textPrimary,
-                            style: BorderStyle.solid)),
+                            color: textPrimary, style: BorderStyle.solid)),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
-                            color: textPrimary,
-                            style: BorderStyle.solid)),
+                            color: textPrimary, style: BorderStyle.solid)),
                   )),
               SizedBox(height: 10),
               Obx(() {

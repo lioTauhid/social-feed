@@ -13,6 +13,7 @@ const String baseUrl = "https://app.klio.digital/api/";
 late String token;
 late String loginType;
 bool darkMode = false;
+String currentLang = "";
 const String appName = "Social Feed";
 const String appVersion = "V 1.0";
 const String privacyPolicy =

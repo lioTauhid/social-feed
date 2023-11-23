@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../model/Post.dart';
 import '../res/constants/app_color.dart';
 
 class Utils {
@@ -69,5 +71,14 @@ class Utils {
       }
     }
     return val;
+  }
+
+  static bool findIdByListNearValue(List<Liked> list, String nearItem) {
+    for (var element in list) {
+      if (element.userId == nearItem) {
+        return true;
+      }
+    }
+    return false;
   }
 }

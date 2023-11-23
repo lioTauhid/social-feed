@@ -31,15 +31,17 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  get:
-  shared_preferences:
-  http:
   font_awesome_flutter:
+  get:
+  http:
   image_picker: ^1.0.4
+  shared_preferences:
   intl:
   firebase_core:
   firebase_auth:
   google_sign_in:
+  firebase_storage:
+  cloud_firestore: ^4.9.2
 
 
 dev_dependencies:

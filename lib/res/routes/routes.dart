@@ -7,7 +7,7 @@ import '../../view/home/home_view.dart';
 import '../../view/login/login_view.dart';
 import '../../view/new_post/new_post.dart';
 import '../../view/register/register_view.dart';
-import '../../view/splash_screen.dart';
+import '../../view/splash/splash_screen.dart';
 
 class AppRoutes {
   static appRoutes() => [

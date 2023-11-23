@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:social_feed/res/constants/app_color.dart';
 import 'package:social_feed/res/constants/value.dart';
 
-import '../view_model/splash_controller.dart';
+import '../../view_model/splash/splash_view_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
